@@ -1,0 +1,10 @@
+@host=https://localhost:7008
+POST {{host}}/auth/login 
+Content-Type: application/json
+
+{
+    "email": "amichai@mantiband.com",
+    "password": "Amiko1232!"
+}
+
+

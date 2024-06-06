@@ -1,0 +1,6 @@
+@SocialDotNet.Server_HostAddress = http://localhost:5181
+
+GET {{SocialDotNet.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

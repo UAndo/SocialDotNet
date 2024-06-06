@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+	<Using Include="BCrypt.Net.BCrypt" Alias="BC" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SocialDotNet.Domain\SocialDotNet.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Interfaces\Notifications\" />
+    <Folder Include="FriendRequests\Common\" />
+    <Folder Include="FriendRequests\Queries\" />
+    <Folder Include="Friendships\Common\" />
+    <Folder Include="Friendships\Queries\" />
+  </ItemGroup>
+
+</Project>
