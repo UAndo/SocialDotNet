@@ -7,7 +7,7 @@ using SocialDotNet.Domain.Common.Errors;
 namespace SocialDotNet.Application.Authentication.Commands.RevokeToken
 {
     public class RevokeTokenCommandHandler :
-        IRequestHandler<RevokeTokenCommand, ErrorOr<Unit>>
+        IRequestHandler<RevokeTokenCommand, ErrorOr<Success>>
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;
@@ -18,10 +18,8 @@ namespace SocialDotNet.Application.Authentication.Commands.RevokeToken
             _jwtTokenGenerator = jwtTokenGenerator;
         }
 
-        public async Task<ErrorOr<Unit>> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Success>> Handle(RevokeTokenCommand request, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
-
             var user = await _userRepository.GetUserByRefreshTokenAsync(request.Token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == request.Token);
 
@@ -29,10 +27,10 @@ namespace SocialDotNet.Application.Authentication.Commands.RevokeToken
                 return Errors.Token.InvalidToken;
 
             // revoke token and save
-            _jwtTokenGenerator.RevokeRefreshToken(refreshToken, "Revoked without replacement");
+            user.RevokeRefreshToken(refreshToken, "Revoked without replacement");
             await _userRepository.UpdateAsync(user);
 
-            return Unit.Value;
+            return Result.Success;
         }
     }
 }

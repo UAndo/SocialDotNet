@@ -18,8 +18,8 @@ namespace SocialDotNet.Application.Chats.Commands.CreatePersonalChat
 
         public async Task Handle(CreatePersonalChatCommand request, CancellationToken cancellationToken)
         {
-            var user1 = await _userRepository.GetUserByIdAsync(request.UserId1);
-            var user2 = await _userRepository.GetUserByIdAsync(request.UserId2);
+            var user1 = await _userRepository.GetByIdAsync(request.UserId1);
+            var user2 = await _userRepository.GetByIdAsync(request.UserId2);
 
             var chat = Chat.Create(string.Empty, true,
         [

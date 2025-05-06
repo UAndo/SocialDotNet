@@ -74,8 +74,8 @@ namespace SocialDotNet.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -110,14 +110,13 @@ namespace SocialDotNet.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PasswordResetCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("PasswordResetCodeExpiration")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProfileImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -125,10 +124,10 @@ namespace SocialDotNet.Infrastructure.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("VerificationCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("VerificationCodeExpiration")
@@ -197,6 +196,9 @@ namespace SocialDotNet.Infrastructure.Migrations
 
                             b1.Property<DateTime>("SentAt")
                                 .HasColumnType("datetime2");
+
+                            b1.Property<int>("Status")
+                                .HasColumnType("int");
 
                             b1.HasKey("Id");
 

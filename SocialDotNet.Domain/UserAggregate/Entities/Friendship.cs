@@ -6,19 +6,19 @@ namespace SocialDotNet.Domain.UserAggregate.Entities
     public class Friendship : Entity<FriendshipId>
     {
         public UserId UserId { get; private set; }
-        public UserId FriendId { get; private set; }
+        public UserId FriendId { get; private set; }    
         public DateTime CreatedAt { get; private set; }
 
-        private Friendship(FriendshipId id, UserId userId, UserId friendId, DateTime createdAt) : base(id)
+        private Friendship(FriendshipId id, UserId userId, UserId friendId) : base(id)
         {
             UserId = userId;
             FriendId = friendId;
-            CreatedAt = createdAt;
+            CreatedAt = DateTime.UtcNow;
         }
 
         public static Friendship Create(UserId userId, UserId friendId)
         {
-            return new Friendship(FriendshipId.CreateUnique(), userId, friendId, DateTime.UtcNow);
+            return new Friendship(FriendshipId.CreateUnique(), userId, friendId);
         }
 
         private Friendship() { }

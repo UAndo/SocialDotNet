@@ -1,8 +1,11 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
+using SocialDotNet.Application.FriendRequests.Common;
 using SocialDotNet.Domain.UserAggregate.ValueObjects;
 
 namespace SocialDotNet.Application.FriendRequests.Commands.AcceptFriendRequest
 {
     public record AcceptFriendRequestCommand(
-        FriendRequestId FriendRequestId) : IRequest;
+        UserId UserId,
+        UserId FriendId) : IRequest<ErrorOr<Unit>>;
 }

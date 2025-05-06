@@ -7,8 +7,8 @@ using SocialDotNet.Contracts.Chat;
 using SocialDotNet.Domain.Common.Errors;
 
 namespace SocialDotNet.Server.Controllers
-{
-    [Route("messages")]
+{   
+    [Route("api/messages")]
     public class MessageController : ApiController
     {
         private readonly IMediator _mediator;

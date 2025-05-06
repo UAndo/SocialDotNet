@@ -1,22 +1,27 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using SocialDotNet.Application.Common.Interfaces.Persistence;
+using SocialDotNet.Application.FriendRequests.Common;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SocialDotNet.Application.FriendRequests.Commands.RejectFriendRequest
 {
-    public class RejectFriendRequestCommandHandler : IRequestHandler<RejectFriendRequestCommand>
+    public class RejectFriendRequestCommandHandler : IRequestHandler<RejectFriendRequestCommand, ErrorOr<Unit>>
     {
-        private readonly IFriendRequestRepository _friendRequestRepository;
+        private readonly  IUserRepository _userRepository;
 
-        public RejectFriendRequestCommandHandler(IFriendRequestRepository friendRequestRepository)
+        public RejectFriendRequestCommandHandler(IUserRepository userRepository)
         {
-            _friendRequestRepository = friendRequestRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task Handle(RejectFriendRequestCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Unit>> Handle(RejectFriendRequestCommand command, CancellationToken cancellationToken)
         {
-            var friendRequest = await _friendRequestRepository.GetByIdAsync(request.FriendRequestId);
-            friendRequest!.Reject();
-            await _friendRequestRepository.UpdateAsync(friendRequest);
+            var user = await _userRepository.GetByIdAsync(command.UserId);
+            var friendRequest = user.FriendRequests.FirstOrDefault(fr => fr.Id == command.FriendRequestId);
+            user.RejectFriendRequest(friendRequest);
+            await _userRepository.UpdateAsync(user);
+            return Unit.Value;
         }
     }
 }

@@ -34,12 +34,24 @@ namespace SocialDotNet.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.Property(u => u.Username)
+                .IsRequired()
+                .HasMaxLength(100);
+
             builder.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(u => u.PasswordHash)
                 .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(u => u.Bio)
+                .IsRequired(false)
+                .HasMaxLength(100);
+
+            builder.Property(u => u.PasswordResetCode)
+                .IsRequired(false)
                 .HasMaxLength(100);
         }
 

@@ -19,10 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Interfaces\Notifications\" />
-    <Folder Include="FriendRequests\Common\" />
-    <Folder Include="FriendRequests\Queries\" />
     <Folder Include="Friendships\Common\" />
-    <Folder Include="Friendships\Queries\" />
   </ItemGroup>
 
 </Project>

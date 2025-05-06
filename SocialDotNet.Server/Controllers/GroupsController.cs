@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SocialDotNet.Server.Controllers
 {
-    [Route("groups")]
+    [Route("api/groups")]
     public class GroupsController : ApiController
     {
         private readonly IMapper _mapper;

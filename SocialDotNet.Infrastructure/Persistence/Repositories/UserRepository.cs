@@ -24,7 +24,7 @@ public class UserRepository : IUserRepository
         return await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<User?> GetUserByIdAsync(UserId id)
+    public async Task<User?> GetByIdAsync(UserId id)
     {
         return await _context.Users.FindAsync(id);
     }
@@ -38,5 +38,10 @@ public class UserRepository : IUserRepository
     {
         _context.Update(user);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<User?> GetByNameAsync(string friendName)
+    {
+        return await _context.Users.SingleOrDefaultAsync(u => u.Username == friendName);
     }
 }

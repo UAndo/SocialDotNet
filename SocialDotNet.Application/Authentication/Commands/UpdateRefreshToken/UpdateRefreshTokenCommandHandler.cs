@@ -29,7 +29,7 @@ namespace SocialDotNet.Application.Authentication.Commands.UpdateRefreshToken
             if (refreshToken.IsRevoked)
             {
                 // revoke all descendant tokens in case this token has been compromised
-                _jwtTokenGenerator.RevokeDescendantRefreshTokens(refreshToken, user, $"Attempted reuse of revoked ancestor token: {refreshToken}");
+                user.RevokeDescendantRefreshTokens(refreshToken, $"Attempted reuse of revoked ancestor token: {refreshToken}");
                 await _userRepository.UpdateAsync(user);
             }
 
@@ -37,11 +37,11 @@ namespace SocialDotNet.Application.Authentication.Commands.UpdateRefreshToken
                 return Errors.Token.InvalidToken;
 
             // replace old refresh token with a new one (rotate token)
-            var newRefreshToken = _jwtTokenGenerator.RotateRefreshToken(refreshToken);
-            user.RefreshTokens.Add(newRefreshToken);
+            var newRefreshToken = _jwtTokenGenerator.GenerateRefreshToken();
+            user.RotateRefreshToken(refreshToken, newRefreshToken, "Replaced by new token");
 
             // remove old refresh tokens from user
-            _jwtTokenGenerator.RemoveOldRefreshTokens(user);
+            user.RemoveOldRefreshTokens(7);
 
             // save changes to db
             await _userRepository.UpdateAsync(user);

@@ -37,7 +37,7 @@ namespace SocialDotNet.Application.Authentication.Commands.Register
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            await _userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user);   
 
             return new AuthenticationResult(
                 user,

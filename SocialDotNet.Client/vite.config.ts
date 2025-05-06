@@ -69,6 +69,10 @@ export default defineConfig({
             '^/auth/ping-auth': {
                 target: 'https://localhost:7008/',
                 secure: false
+            },
+            '^/auth/chats': {
+                target: 'https://localhost:7008/',
+                secure: false
             }
         },
         port: 5173,

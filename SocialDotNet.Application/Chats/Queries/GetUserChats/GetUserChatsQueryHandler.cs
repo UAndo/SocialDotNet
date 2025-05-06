@@ -39,7 +39,7 @@ namespace SocialDotNet.Application.Chats.Queries.GetUserChats
                 var chatMember = chat.ChatMembers.FirstOrDefault(cm => cm.UserId != userId);
                 if (chatMember != null)
                 {
-                    var user = await _userRepository.GetUserByIdAsync(chatMember.UserId);
+                    var user = await _userRepository.GetByIdAsync(chatMember.UserId);
                     name = $"{user.FirstName} {user.LastName}";
                     avatarUrl = user.ProfileImage;
                 }

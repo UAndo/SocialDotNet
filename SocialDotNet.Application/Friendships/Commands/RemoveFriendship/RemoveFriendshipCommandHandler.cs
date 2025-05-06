@@ -1,21 +1,26 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using SocialDotNet.Application.Common.Interfaces.Persistence;
+using SocialDotNet.Application.FriendRequests.Common;
 
 namespace SocialDotNet.Application.Friendships.Commands.RemoveFriendship
 {
-    public class RemoveFriendshipCommandHandler : IRequestHandler<RemoveFriendshipCommand>
+    public class RemoveFriendshipCommandHandler : IRequestHandler<RemoveFriendshipCommand, ErrorOr<FriendshipResult>>
     {
-        private readonly IFriendshipRepository _friendshipRepository;
+        private readonly IUserRepository _userRepository;
 
-        public RemoveFriendshipCommandHandler(IFriendshipRepository friendshipRepository)
+        public RemoveFriendshipCommandHandler(IUserRepository userRepository)
         {
-            _friendshipRepository = friendshipRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task Handle(RemoveFriendshipCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<FriendshipResult>> Handle(RemoveFriendshipCommand command, CancellationToken cancellationToken)
         {
-            var friendship = await _friendshipRepository.GetByIdAsync(request.FriendshipId);
-            await _friendshipRepository.RemoveAsync(friendship!);
+            var user = await _userRepository.GetByIdAsync(command.UserId);
+            var friendship = user?.Friendships.FirstOrDefault(f => f.FriendId == command.FriendId);
+            user.RemoveFriendship(friendship);
+            await _userRepository.UpdateAsync(user);
+            return new FriendshipResult();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace SocialDotNet.Application.Authentication.Queries.Login
             var refreshToken = _jwtTokenGenerator.GenerateRefreshToken();
             user.RefreshTokens.Add(refreshToken);
 
-            _jwtTokenGenerator.RemoveOldRefreshTokens(user);
+            user.RemoveOldRefreshTokens(7);
 
             await _userRepository.UpdateAsync(user);
 

@@ -9,5 +9,6 @@ public interface IUserRepository
     Task AddAsync(User user);
     Task UpdateAsync(User user);
     Task<User?> GetUserByRefreshTokenAsync(string refreshToken);
-    Task<User?> GetUserByIdAsync(UserId id);
+    Task<User?> GetByIdAsync(UserId id);
+    Task<User?> GetByNameAsync(string friendName);
 }

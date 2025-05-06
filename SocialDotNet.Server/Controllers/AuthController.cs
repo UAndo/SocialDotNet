@@ -13,7 +13,7 @@ using SocialDotNet.Domain.Common.Errors;
 
 namespace SocialDotNet.Server.Controllers
 {
-    [Route("auth")]
+    [Route("api/auth")]
     public class AuthController : ApiController
     {
         private readonly ISender _mediator;
@@ -128,6 +128,5 @@ namespace SocialDotNet.Server.Controllers
             };
             Response.Cookies.Append("refreshToken", token, cookieOptions);
         }
-
     }
 }

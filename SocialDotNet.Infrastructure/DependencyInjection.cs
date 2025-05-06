@@ -45,6 +45,8 @@ namespace SocialDotNet.Infrastructure
             services.AddScoped<IChatMemberRepository, ChatMemberRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

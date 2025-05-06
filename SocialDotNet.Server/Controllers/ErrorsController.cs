@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SocialDotNet.Server.Controllers
 {
-    [Route("/error")]
     public class ErrorsController : ControllerBase
     {
         [HttpPost]

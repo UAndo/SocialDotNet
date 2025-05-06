@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SocialDotNet.Application.Chats.Commands.CreateGroupChat;
 using SocialDotNet.Application.Chats.Commands.CreatePersonalChat;
@@ -7,20 +8,22 @@ using SocialDotNet.Domain.UserAggregate.ValueObjects;
 
 namespace SocialDotNet.Server.Controllers
 {
-    [Route("chats")]
+    [Route("api/chats")]
     public class ChatsController : ApiController
     {
         private readonly ISender _mediator;
+        private readonly IMapper _mapper;
 
-        public ChatsController(ISender sender)
+        public ChatsController(ISender sender, IMapper mapper)
         {
             _mediator = sender;
+            _mapper = mapper;
         }
 
         [HttpGet("get-chats-for-user/{userId}")]
         public async Task<IActionResult> GetChatsForUser(Guid userId)
         {
-            var command = new GetUserChatsQuery(UserId.Create(userId));
+            var command = _mapper.Map<GetUserChatsQuery>(userId);
             var chats = await _mediator.Send(command);
             return Ok(chats);
         }

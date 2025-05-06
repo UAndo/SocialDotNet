@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import InputField from './InputField';
+import InputField from '../../components/InputField';
 
 function RegisterForm() {
     const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ function RegisterForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post('auth/register', { email, password });
+            const response = await axios.post('/auth/register', { email, password, firstName, lastName, username });
             console.log('Register successful:', response.data);
             // Можливо, зберегти токен в localStorage або виконати інші дії
         } catch (error) {
@@ -76,18 +76,18 @@ function RegisterForm() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full bg-custom-purple text-white p-2 rounded focus:outline-none"
+                            className="w-full bg-royalPurple text-white p-2 rounded focus:outline-none"
                         >
                             Sign in
                         </button>
                     </div>
                     <p className="text-center text-white/50 mt-4">
                         By clicking sign up, you agree to our 
-                        <a href="#" className="text-custom-blue hover:underline"> Terms of Service</a> and 
-                        <a href="#" className="text-custom-blue hover:underline"> Privacy Policy</a>
+                        <a href="#" className="text-lightBlue hover:underline"> Terms of Service</a> and 
+                        <a href="#" className="text-lightBlue hover:underline"> Privacy Policy</a>
                     </p>
                     <div className="mt-4 text-left">
-                        <a href="/login" className="text-custom-blue hover:underline">Already have an account?</a>
+                        <a href="/login" className="text-lightBlue hover:underline">Already have an account?</a>
                     </div>
                 </form>
             </div>

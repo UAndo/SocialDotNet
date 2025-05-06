@@ -6,6 +6,16 @@ using SocialDotNet.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 {
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
+
     builder.Services
         .AddPresentation()
         .AddApplication()
@@ -61,6 +71,7 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
+    app.UseCors();
     app.MapControllers();
     app.MapFallbackToFile("/index.html");
     app.Run();

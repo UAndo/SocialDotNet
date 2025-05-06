@@ -1,7 +1,7 @@
-import LoginForm from '../components/LoginForm';
-/*import QRCode from 'qrcode.react';*/
+import LoginForm from '../features/auth/LoginForm';
 
-function Login() {
+function Login()
+{
     return (
         <div className="flex justify-center items-center h-screen bg-custom-gradient">
             <LoginForm />
